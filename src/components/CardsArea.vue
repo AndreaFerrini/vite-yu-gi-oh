@@ -1,9 +1,13 @@
 <script>
 
 import { store } from '../store'
+import SingolaCard from "./SingolaCard.vue"
 
 export default{
     name: "CardsArea",
+    components: {
+        SingolaCard
+    },
     data() {
         return {
             store
@@ -15,14 +19,8 @@ export default{
 
 <template>
     <div class="row">
-        <div class="col-3">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Titolo carta</h5>
-                    <span class="card-text">Archetipo</span>
-                </div>
-            </div>
+        <div v-for="(elem, index) in store.arrayCarte" :key="index" class="col-3">
+            <SingolaCard :datiSingolaCard="elem" />
         </div>
 
     </div>
