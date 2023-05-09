@@ -5,14 +5,14 @@ import { createHydrationRenderer } from "vue";
 import { store } from "../store";
 
 export default{
-    name: "SearchCard",
+    name: "SearchCards",
     data() {
         return {
             store
         }
     },
     created() {
-        axios.get('https://db.ygoprodeck.com/api/v7/archetypes.php')
+        axios.get("https://db.ygoprodeck.com/api/v7/archetypes.php")
             .then( (res)=>{
                 console.log(res.data)
                 this.store.arrayArchetype = res.data

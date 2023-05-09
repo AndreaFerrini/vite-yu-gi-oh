@@ -26,8 +26,9 @@ export default{
   },
   methods: {
     callApi(){
-      if (store.valueArchetype !== '' ){
-        axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=${encodeURIComponent(store.valueArchetype)}')
+      
+      if (store.valueArchetype !== `` ){
+        axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=${encodeURIComponent(store.valueArchetype)}`)
           .then((res) => {
             console.log( res.data.data )
             this.store.arrayCarte = res.data.data
