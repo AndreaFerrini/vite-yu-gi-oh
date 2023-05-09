@@ -3,8 +3,10 @@
 import axios from 'axios';
 import HeaderComp from "./components/HeaderComp.vue";
 import MainComp from "./components/MainComp.vue";
+import SearchCards from "./components/SearchCards.vue";
 
-import { store } from './store'
+
+import { store } from '../src/store'
 
 
 export default{
@@ -16,26 +18,36 @@ export default{
   },
   components: {
     HeaderComp,
-    MainComp
+    MainComp,
+    SearchCards
   },
   created() {
     this.callApi();
   },
   methods: {
     callApi(){
-      axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=3')
-        .then((res) => {
-          console.log( res.data.data )
-          this.store.arrayCarte = res.data.data
-        })
+      if (store.valueArchetype !== '' ){
+        axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=${encodeURIComponent(store.valueArchetype)}')
+          .then((res) => {
+            console.log( res.data.data )
+            this.store.arrayCarte = res.data.data
+      })
+    } else {
+        axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=3")
+          .then((res) => {
+            console.log(res.data.data)
+            this.store.arrayCarte = res.data.data
+          })
+      }  
     }
-  }
+  },
 }
 </script>
 
 <template>
 
 <HeaderComp/>
+<SearchCards @nomeEmit="callApi()"/>
 <MainComp/>
 </template>
 
